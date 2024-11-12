@@ -11,6 +11,7 @@ from rlgym.rocket_league.sim import RocketSimEngine
 from rlgym.rocket_league.rlviser import RLViserRenderer
 from rlgym.rocket_league.state_mutators import MutatorSequence, FixedTeamSizeMutator, KickoffMutator
 
+import rlviser_py as rlviser
 
 env = RLGym(
     state_mutator=MutatorSequence(
@@ -32,7 +33,7 @@ env = RLGym(
     renderer=RLViserRenderer()
 )
 
-render = False
+render = True
 
 while True:
     obs_dict = env.reset()
@@ -40,9 +41,11 @@ while True:
     ep_reward = {agent_id: 0 for agent_id in env.agents}
     t0 = time.time()
     while True:
+        while rlviser.get_game_paused():
+            time.sleep(0.001)
         if render:
             env.render()
-            time.sleep(6/120)
+            time.sleep(6/120 / rlviser.get_game_speed())
 
         actions = {}
         for agent_id, action_space in env.action_spaces.items():
