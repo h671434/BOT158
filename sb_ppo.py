@@ -2,7 +2,7 @@ import os
 from stable_baselines3 import PPO
 from gym_env_wrapper import GymEnvWrapper
 
-// 
+# Attempt at using stable baselines to train a model
 def build_rlgym_sim_env():
     from rlgym.api import RLGym
     from rlgym.rocket_league.action_parsers import LookupTableAction, RepeatAction
@@ -62,6 +62,8 @@ env = build_rlgym_sim_env()
 model = PPO("MlpPolicy", env=env, verbose=1)
 
 #Train our agent!
-model.learn(total_timesteps=int(1e4), progress_bar=True)
+trained = model.learn(total_timesteps=int(1e4), progress_bar=True)
 
-model.save(os.path.join("data", "sb_ppo"))
+trained.save(os.path.join("data", "sb_ppo"))
+
+PPO.load()
