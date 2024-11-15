@@ -33,8 +33,7 @@ This bot focuses on default 1v1.
 Rocket League has it's own collaborative community dedicated to making bots. The community has made plenty of tools for Bot-development.
 Initially there is Bakkesmod, a mod injected into Rocket League and serves as an interface for other plugins. Bakkesmod is the groundstone for all Rocket League community development. Then there is RLBot, which uses Bakkesmod to read gamestate and return inputs from the bot.
 
-In order to train the bot I am using [RLGym (Rocket League Gym)](https://rlgym.org/). RLGym treats Rocket League as an OpenAI Gym-style 
-enviornment for Reinforcement Learning. More about RLGym here: 
+In order to train the bot I am using [RLGym (Rocket League Gym)](https://rlgym.org/). RLGym treats Rocket League as an OpenAI Gym-style enviornment for Reinforcement Learning.  
 
 The latest official release of RLGym, version 1.2.2, uses the games engine to run the gym enviornment. 
 This also means the game has to be running on the machine while training.  To avoid that, I want to simulate the game with [RocketSim](https://github.com/ZealanL/RocketSim). While not perfect, the simulations are accurate enough for training AI.
@@ -45,7 +44,9 @@ In this project im using a pre-release of RLGym 2.0, where RocketSim used as a g
 RLGym 2.0 also has integrated support for [RLViser](https://github.com/VirxEC/rlviser), which is a ligtweight visualizer for RocketSim. RLViser requires
 the exectuable [rlviser.exe](https://github.com/VirxEC/rlviser/releases/tag/v0.7.16) in the projects root folder.
 
-## Setup
-The main dependency, RLGym, is only compatible with Python 3.7-3.9 (not >=3.10), so I created a virtual enviornment with venv and Python 3.9.13.
+## Setup / Enviornment
+I created my virtual enviornment with venv and Python 3.9.13. 
+Since RLGym is only compatible with Python between versions 3.7 and 3.9 (3.10 not supported), I had to use an older release.
+The main dependecies were not available from conda. I bumped in to some issues while installing and resolving some dependencies, so the overhead from conda seemed excessive and problematic. 
 All dependencies are listed in requirements.txt and can be installed with `pip install -r requirements.txt`
 `pip install wheel`
