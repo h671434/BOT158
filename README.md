@@ -1,4 +1,7 @@
 # BOT158
+
+REPORT FOUND IN REPORT.md
+
 BOT158 is a machine learning bot able to play Rocket League as a player.
 
 ## What is Rocket League?

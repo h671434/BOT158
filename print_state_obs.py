@@ -1,22 +1,27 @@
 import json
+import pickle
 from dataclasses import asdict
-from rlgym.rocket_league.obs_builders import DefaultObs
-from typing import List, Dict, Any, Tuple
+import math
+
 import numpy as np
-from rlgym.api import ObsBuilder, AgentID
-from rlgym.rocket_league.api import GameState
+
+from rlgym_sim.utils.obs_builders import DefaultObs
+from rlgym_sim.utils.gamestates import GameState, PlayerData
 
 class PrintStateObs(DefaultObs):
     
-    def build_obs(self, agents: List[AgentID], state: GameState, shared_info: Dict[str, Any]) -> Dict[AgentID, np.ndarray]:
-        if(state.tick_count % 50 == 0):
+    def __init__(self, pos_coef=1 / 2300, ang_coef=1 / math.pi, lin_vel_coef=1 / 2300, ang_vel_coef=1 / math.pi):
+        super().__init__(pos_coef, ang_coef, lin_vel_coef, ang_vel_coef)
+        
+        self.count = 0
+    
+    def build_obs(self, player: PlayerData, state: GameState, previous_action: np.ndarray):
+        self.count = self.count + 1
+        
+        if(self.count % 5000 == 0):
             print(state.__str__)
-            state_dict = {k: str(v) for k, v in asdict(state).items()}
-            state_json = json.dumps(state_dict, 
-                                    default=lambda o: o.__dict__, 
-                                    sort_keys=True,
-                                    indent=4)
-            with open("game_states/ex" + str(state.tick_count) + "state.json", "w") as outfile:
+            state_json = json.dumps(pickle.dumps(state).decode('latin-1'))
+            with open("game_states/ex" + str(self.count) + "state.json", "w") as outfile:
                 outfile.write(state_json)
             
-        return super().build_obs(agents, state, shared_info)
+        return super().build_obs(player, state, previous_action)
