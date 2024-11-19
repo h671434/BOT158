@@ -1,7 +1,7 @@
 # BOT158
 Aleksander Stadsnes Lønningdal, 14. nov. 2024
 
-Note: Website is not up yet, as I haven't been able to load the model. Most of the time in this project has been spent on research and setup for the project has taken. I realized late in the project that the prerelease of RLGym 2.0 has not been implemented with OpenAI Gym yet. The PPO learner (https://github.com/AechPro/rlgym-ppo/tree/main) I used to test with is not able to load the model for simple predictions.
+Note: Current website, as seen in website-demo.mp4, is not very "user friendly" to put it mildly. It's just a quick set up to fill the criteria of the assignment. I ran into issues with the RLGym 2.0 beta, which made it hard to comple in time. The current website takes in an encoded serialized observation as pure text, and outputs an array of values. I've printed some observations during training which can be used as input. These are found in the observations folder. Each value in the output array is mapped to a controls-input value (such as throttle, steer, jump, etc.) in Rocket League. 
 
 # DESCRIBE THE PROBLEM
 ## SCOPE
@@ -40,19 +40,19 @@ The latest official release of RLGym, version 1.2.2, uses the game's engine to r
 The second option is parsing data from replays. A .replay is a file generated from Rocket League and contains data from a match, allowing it to be viewed/replayed at a later time. Replays can be gathered from databases such as ballchasing.com through their API. The API is limited to a couple requests per hour, making it hard to gather a large dataset. Replays are unreadable in their .replay format, but there are a couple community made parsers available on the internet. I would then need to simulate the game in order to make the data usable. Unlike other replays from other games, a Rocket League replay file does not store inputs from players at each time-step. Instead the replay contains updates to different game-state objects at different time steps. There are no available simulators for this, meaning I would have to create the simulator myself. In order to find the desired output for a supervised learning model, I would need to reverse engineer the game-states into player inputs. The other option would be to use reinforced learning with the game-states to calculate reward.
 
 ## MODELING
-PPOs (Proximal Policy Optimization) seem like the most used learning algorithm for bots. The agent will be modular, meaning there while be multiple models for diffent things. Recurrent Neural Networks (RNN) are a good option. I plan to try LSTM (Long Short Term Memory) or a PPO RNN, and see how they perform. RNNs are good for time-series problems, because they are affected by earlier inputs. Most the result is dependent on the reward functions. Reward function should start small and then change gradually. If we want the car to fly, it can initially be rewarded from just jumping. As it has learned, that reward can be removed, and a reward for leaning back and boosting can be added. After that a height reward. And so on untill it is rewarded based on direction, speed and accuracy.
+PPOs (Proximal Policy Optimization) seem like the most used learning algorithm for bots. The agent will be modular, meaning there while be multiple models for diffent things. Recurrent Neural Networks (RNN) are a good option. I plan to try LSTM (Long Short Term Memory) or a PPO RNN, and see how they perform. RNNs are good for time-series problems, because they are affected by earlier inputs. Results are mostly dependent on reward functions. In order to speed up the training process, reward functions should start small and change gradually. If we want the car to fly, the agent can initially be rewarded for just jumping in the general direction. As it has learned, we can move on to rewarding it for leaning back and boosting. Finally it can be rewarded for hitting the ball in the air while taking speed and accuracy into consideration. This means we have to set up training scenarios for the bot. This is done with a state setter.
  
 ## DEPLOYMENT
 As a final goal, my website will simulate gameplay, based on its own decisions and predictions of other players, and then visualize with low quality graphics. With a good model, this can be used as a learning tool for players to get better at the game. I would like to create more models, where the bot can replicate other players. The website should be able to let the user select a player, and then show how it thinks the player would have solved it.
  
 ## REFERENCES
-https://rlbot.org/ 
-https://rlgym.org/ 
-https://github.com/lucas-emery/rocket-league-gym/tree/v2 
-https://github.com/AechPro/rocket-league-gym-sim 
-https://github.com/AechPro/rlgym-ppo/blob/main/rlgym_ppo/learner.py 
-https://github.com/ZealanL/RLGym-PPO-Guide/blob/main/intro.md 
-https://wiki.rlbot.org/botmaking/machine-learning-faq/ 
-https://ballchasing.com/doc/api 
-https://github.com/rocket-league-replays/rocket-league-replays/wiki/Rocket-League-Replay-Parsers 
-https://stable-baselines3.readthedocs.io/en/master/modules/ppo.html#stable_baselines3.ppo.MlpPolicy 
+- RLBot. (2024, 15. oktober) *RLBot*. https://rlbot.org/ 
+- RLBot. (2024, 15. oktober) *Machine Learning FAQ*. https://wiki.rlbot.org/botmaking/machine-learning-faq/ 
+- RLGym. (2024, 15. oktober) *RLGym*. https://rlgym.org/ 
+- RLGym. (2024, 15. oktober) *RLGym V2*. Github. https://github.com/lucas-emery/rocket-league-gym/tree/v2 
+- Allen "AechPro", M., Veilleux "VirxEC", E. & "JPK314". (2024, 15. oktober) *RLGym-Sim*.  Github. https://github.com/AechPro/rocket-league-gym-sim 
+- Allen "AechPro", M.. (2024, 15. oktober) *RLGym-PPO Learner*. Github. https://github.com/AechPro/rlgym-ppo/blob/main/rlgym_ppo/learner.py 
+- "ZealanL". (2024, 15. oktober) *RLGym PPO Guide*. Github. https://github.com/ZealanL/RLGym-PPO-Guide/blob/main/intro.md 
+- Ballchasing.com. (2024, 15. oktober) *Ballchasing.com API*. https://ballchasing.com/doc/api 
+- (2024, 15. oktober) *Rocket League Replay Parsers*. Github. https://github.com/rocket-league-replays/rocket-league-replays/wiki/Rocket-League-Replay-Parsers 
+- Stable Baselines3. (2024, 15. oktober) *PPO*. https://stable-baselines3.readthedocs.io/en/master/modules/ppo.html

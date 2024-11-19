@@ -1,6 +1,6 @@
 # BOT158
 
-REPORT FOUND IN REPORT.md
+Report is found in REPORT.md
 
 BOT158 is a machine learning bot able to play Rocket League as a player.
 
@@ -51,5 +51,7 @@ the exectuable [rlviser.exe](https://github.com/VirxEC/rlviser/releases/tag/v0.7
 I created my virtual enviornment with venv and Python 3.9.13. 
 Since RLGym is only compatible with Python between versions 3.7 and 3.9 (3.10 not supported), I had to use an older release.
 The main dependecies were not available from conda. I bumped in to some issues while installing and resolving some dependencies, so the overhead from conda seemed excessive and problematic. 
-All dependencies are listed in requirements.txt and can be installed with `pip install -r requirements.txt`
-`pip install wheel`
+All dependencies are listed in requirements.txt and can be installed with 
+`pip install wheel` 
+`pip install -r requirements.txt`
+

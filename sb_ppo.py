@@ -45,8 +45,7 @@ env = rlgym_sim.make(
 #Initialize PPO from stable_baselines3
 model = PPO.load(os.path.join("data", "sb_ppo"), env=env)
 
-model.learn(10000000, progress_bar=True)
+model.learn(1000, progress_bar=True)
 model.save(os.path.join("data", "sb_ppo"))
 
-PPO.load(os.path.join("data", "sb_ppo"))
 

@@ -1,3 +1,4 @@
+import base64
 import json
 import pickle
 from dataclasses import asdict
@@ -17,11 +18,19 @@ class PrintStateObs(DefaultObs):
     
     def build_obs(self, player: PlayerData, state: GameState, previous_action: np.ndarray):
         self.count = self.count + 1
-        
-        if(self.count % 5000 == 0):
-            print(state.__str__)
-            state_json = json.dumps(pickle.dumps(state).decode('latin-1'))
-            with open("game_states/ex" + str(self.count) + "state.json", "w") as outfile:
+        obs = super().build_obs(player, state, previous_action)
+        if(self.count % 50 == 0):
+
+            state_json = obj_to_txt(obs)
+
+            with open("observations/ex_obs" + str(self.count) + ".txt", "w") as outfile:
                 outfile.write(state_json)
             
-        return super().build_obs(player, state, previous_action)
+        return obs
+    
+def obj_to_txt(obj):
+    message_bytes = pickle.dumps(obj)
+    base64_bytes = base64.b64encode(message_bytes)
+    txt = base64_bytes.decode('ascii')
+    return txt
+
