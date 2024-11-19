@@ -1,7 +1,7 @@
 # BOT158
 Aleksander Stadsnes Lønningdal, 14. nov. 2024
 
-Note: Current website, as seen in website-demo.mp4, is not very "user friendly" to put it mildly. It's just a quick set up to fill the criteria of the assignment. I ran into issues with the RLGym 2.0 beta, which made it hard to comple in time. The current website takes in an encoded serialized observation as pure text, and outputs an array of values. I've printed some observations during training which can be used as input. These are found in the observations folder. Each value in the output array is mapped to a controls-input value (such as throttle, steer, jump, etc.) in Rocket League. 
+Note: Current website, as seen in website-demo.mp4, is not very "user friendly" to put it mildly. It's just a quick set up to fill the criteria of the assignment. I ran into issues with the RLGym 2.0 beta, which made it hard to comple in time. The current website takes in an encoded serialized observation as pure text, and outputs an array of values. I've printed some observations during training which can be used as input. These are found in the observations folder. Each value in the output array is mapped to a controls-input value (such as throttle, steer, jump, etc.) in Rocket League. >
 
 # DESCRIBE THE PROBLEM
 ## SCOPE
